@@ -1,4 +1,5 @@
 import './square.css';
+import { ReactComponent as PawnW } from '../../assets/pawn-white.svg';
 
 interface ISquareProps extends ISquareState {
   onClick: (cord: string) => void;
@@ -9,6 +10,7 @@ export interface ISquareState {
   cords: string;
   key?: string;
   selected?: boolean;
+  piece: string;
 }
 
 export default function Square(props: ISquareProps) {
@@ -23,9 +25,21 @@ export default function Square(props: ISquareProps) {
   } else {
     classList += ' white';
   }
+
+  function checkPiece(str: string) {
+    if (str === 'pawnW') {
+      return (
+        <div>
+          <PawnW className="chessPiece " />
+        </div>
+      );
+    }
+  }
+
   return (
     <div className={classList} onClick={() => props.onClick(props.cords)}>
       <div className="cords">{props.cords}</div>
+      {checkPiece(props.piece)}
     </div>
   );
 }

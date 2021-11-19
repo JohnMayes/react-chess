@@ -1,4 +1,6 @@
 .board-square {
+  display: grid;
+  place-content: center;
   width: 60px;
   height: 60px;
   border: solid 1px;
@@ -18,4 +20,9 @@
 
 .selected {
   background-color: red;
+}
+
+.chessPiece {
+  width: 40px;
+  height: 40px;
 }

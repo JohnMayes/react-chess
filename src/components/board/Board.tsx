@@ -14,6 +14,7 @@ export default function Board(props: IBoardProps) {
       key={i.cords}
       onClick={props.onSquareClick}
       selected={i.selected}
+      piece={i.piece}
     />
   ));
 

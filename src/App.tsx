@@ -13,7 +13,13 @@ for (let i = yAxis.length - 1; i >= 0; i--) {
     const number = j + i + 2;
     const cords = `${xAxis[j]}${yAxis[i]}`;
     const key = cords;
-    init.push({ number, cords, key });
+    let piece;
+    if (yAxis[i] === '2') {
+      piece = 'pawnW';
+    } else {
+      piece = '';
+    }
+    init.push({ number, cords, key, piece });
   }
 }
 
