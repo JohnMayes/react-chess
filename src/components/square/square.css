@@ -1,0 +1,21 @@
+.board-square {
+  width: 60px;
+  height: 60px;
+  border: solid 1px;
+}
+
+.black {
+  background-color: rgb(97, 96, 96);
+}
+
+.white {
+  background-color: rgb(240, 234, 234);
+}
+
+.cords {
+  font-size: 0.6em;
+}
+
+.selected {
+  background-color: red;
+}
