@@ -3,15 +3,14 @@
   place-content: center;
   width: 60px;
   height: 60px;
-  border: solid 1px;
 }
 
 .black {
-  background-color: #7d945d;
+  background-color: #613d3d;
 }
 
 .white {
-  background-color: #ebebd2;
+  background-color: #f3ddcf;
 }
 
 .cords {

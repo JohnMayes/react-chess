@@ -18,5 +18,9 @@ export default function Board(props: IBoardProps) {
     />
   ));
 
-  return <div className="board">{fillBoard}</div>;
+  return (
+    <div className="background">
+      <div className="board">{fillBoard}</div>
+    </div>
+  );
 }
