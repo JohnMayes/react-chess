@@ -13,15 +13,49 @@ for (let i = yAxis.length - 1; i >= 0; i--) {
     const number = j + i + 2;
     const cords = `${xAxis[j]}${yAxis[i]}`;
     const key = cords;
-    let piece;
-    if (yAxis[i] === '2') {
-      piece = 'pawnW';
-    } else {
-      piece = '';
-    }
+    let piece = '';
     init.push({ number, cords, key, piece });
   }
 }
+
+init.forEach((e) => {
+  if (/2$/.test(e.cords)) {
+    e.piece = 'pawnW';
+  }
+  if (/7$/.test(e.cords)) {
+    e.piece = 'pawnB';
+  }
+  if (/a1|h1/.test(e.cords)) {
+    e.piece = 'rookW';
+  }
+  if (/a8|h8/.test(e.cords)) {
+    e.piece = 'rookB';
+  }
+  if (/b1|g1/.test(e.cords)) {
+    e.piece = 'knightW';
+  }
+  if (/b8|g8/.test(e.cords)) {
+    e.piece = 'knightB';
+  }
+  if (/c1|f1/.test(e.cords)) {
+    e.piece = 'bishopW';
+  }
+  if (/c8|f8/.test(e.cords)) {
+    e.piece = 'bishopB';
+  }
+  if (/d1/.test(e.cords)) {
+    e.piece = 'queenW';
+  }
+  if (/d8/.test(e.cords)) {
+    e.piece = 'queenB';
+  }
+  if (/e1/.test(e.cords)) {
+    e.piece = 'kingW';
+  }
+  if (/e8/.test(e.cords)) {
+    e.piece = 'kingB';
+  }
+});
 
 function App() {
   let [board, setBoard] = useState(init);
