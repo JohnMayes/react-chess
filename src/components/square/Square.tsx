@@ -1,5 +1,6 @@
 import './square.css';
 import pieces from '../pieces/Pieces';
+import { SyntheticEvent } from 'react';
 
 interface ISquareProps extends ISquareState {
   onClick: (cord: string) => void;
@@ -15,14 +16,6 @@ export interface ISquareState {
 
 export default function Square(props: ISquareProps) {
   let classList = 'board-square';
-
-  if (props.selected) {
-    classList += ' selected';
-  }
-
-  if (props.selected && props.piece.length > 0) {
-    classList += ' selected-piece';
-  }
 
   if (props.number % 2 === 0) {
     classList += ' black';
@@ -59,9 +52,29 @@ export default function Square(props: ISquareProps) {
     }
   }
 
+  function handleDrop(e: SyntheticEvent) {
+    e.preventDefault();
+    console.log(` moved to ${props.cords}`);
+  }
+
+  function handleDragOver(e: SyntheticEvent) {
+    e.preventDefault();
+  }
+
+  function handleDragLeave(e: SyntheticEvent) {
+    e.preventDefault();
+    console.log(`${props.piece}`);
+  }
+
   return (
-    <div className={classList} onClick={() => props.onClick(props.cords)}>
-      <div className="cords">{props.cords}</div>
+    <div
+      className={classList}
+      onClick={() => props.onClick(props.cords)}
+      onDrop={(e) => handleDrop(e)}
+      onDragOver={(e) => handleDragOver(e)}
+      onDragLeave={(e) => handleDragLeave(e)}
+    >
+      {/* <div className="cords">{props.cords}</div> */}
       {checkPiece(props.piece)}
     </div>
   );

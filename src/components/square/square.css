@@ -17,13 +17,13 @@
   font-size: 0.6em;
 }
 
-.selected {
+/* .selected {
   background-color: red;
 }
 
 .selected-piece {
   background-color: chartreuse;
-}
+} */
 
 .chessPiece {
   width: 40px;

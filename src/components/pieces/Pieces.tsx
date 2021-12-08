@@ -10,68 +10,67 @@ import { ReactComponent as QueenW } from '../../assets/queen-white.svg';
 import { ReactComponent as QueenB } from '../../assets/queen-black.svg';
 import { ReactComponent as KingW } from '../../assets/king-white.svg';
 import { ReactComponent as KingB } from '../../assets/king-black.svg';
-import Draggable from 'react-draggable';
 
 const pieces = {
   PawnW: (
-    <Draggable grid={[60, 60]}>
+    <div draggable>
       <PawnW className="chessPiece" />
-    </Draggable>
+    </div>
   ),
   PawnB: (
-    <Draggable grid={[60, 60]}>
+    <div draggable>
       <PawnB className="chessPiece" />
-    </Draggable>
+    </div>
   ),
   RookW: (
-    <Draggable grid={[60, 60]}>
+    <div draggable>
       <RookW className="chessPiece" />
-    </Draggable>
+    </div>
   ),
   RookB: (
-    <Draggable grid={[60, 60]}>
+    <div draggable>
       <RookB className="chessPiece" />
-    </Draggable>
+    </div>
   ),
   KnightW: (
-    <Draggable grid={[60, 60]}>
+    <div draggable>
       <KnightW className="chessPiece" />
-    </Draggable>
+    </div>
   ),
   KnightB: (
-    <Draggable grid={[60, 60]}>
+    <div draggable>
       <KnightB className="chessPiece" />
-    </Draggable>
+    </div>
   ),
   BishopW: (
-    <Draggable grid={[60, 60]}>
+    <div draggable>
       <BishopW className="chessPiece" />
-    </Draggable>
+    </div>
   ),
   BishopB: (
-    <Draggable grid={[60, 60]}>
+    <div draggable>
       <BishopB className="chessPiece" />
-    </Draggable>
+    </div>
   ),
   QueenW: (
-    <Draggable grid={[60, 60]}>
+    <div draggable>
       <QueenW className="chessPiece" />
-    </Draggable>
+    </div>
   ),
   QueenB: (
-    <Draggable grid={[60, 60]}>
+    <div draggable>
       <QueenB className="chessPiece" />
-    </Draggable>
+    </div>
   ),
   KingW: (
-    <Draggable grid={[60, 60]}>
+    <div draggable>
       <KingW className="chessPiece" />
-    </Draggable>
+    </div>
   ),
   KingB: (
-    <Draggable grid={[60, 60]}>
+    <div draggable>
       <KingB className="chessPiece" />
-    </Draggable>
+    </div>
   ),
 };
 
