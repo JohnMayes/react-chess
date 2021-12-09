@@ -1,7 +1,8 @@
 import './App.css';
 import Board from './components/board/Board';
 import { ISquareState } from './components/square/Square';
-import { useState } from 'react';
+import { SyntheticEvent, useState } from 'react';
+import pieces from './components/pieces/Pieces';
 
 const xAxis = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 const yAxis = ['1', '2', '3', '4', '5', '6', '7', '8'];
@@ -68,9 +69,23 @@ function App() {
     setBoard(updatedBoard);
   };
 
+  function handleDrop(e: SyntheticEvent, cord: string) {
+    e.preventDefault();
+    const updatedBoard = board.map((square) => ({
+      ...square,
+      selected: square.cords === cord,
+      piece: square.cords === cord ? 'pawnW' : `${square.piece}`,
+    }));
+    setBoard(updatedBoard);
+  }
+
   return (
     <div className="app">
-      <Board board={board} onSquareClick={onSquareClick} />
+      <Board
+        board={board}
+        onSquareClick={onSquareClick}
+        handleDrop={handleDrop}
+      />
     </div>
   );
 }

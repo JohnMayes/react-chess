@@ -4,6 +4,7 @@ import { SyntheticEvent } from 'react';
 
 interface ISquareProps extends ISquareState {
   onClick: (cord: string) => void;
+  onDrop: (e: SyntheticEvent, cord: string) => void;
 }
 
 export interface ISquareState {
@@ -52,10 +53,11 @@ export default function Square(props: ISquareProps) {
     }
   }
 
-  function handleDrop(e: SyntheticEvent) {
-    e.preventDefault();
-    console.log(` moved to ${props.cords}`);
-  }
+  // function handleDrop(e: SyntheticEvent) {
+  //   e.preventDefault();
+  //   console.log(` moved to ${props.cords}`);
+  //   setBoard()
+  // }
 
   function handleDragOver(e: SyntheticEvent) {
     e.preventDefault();
@@ -63,14 +65,14 @@ export default function Square(props: ISquareProps) {
 
   function handleDragLeave(e: SyntheticEvent) {
     e.preventDefault();
-    console.log(`${props.piece}`);
+    // console.log(`${props.piece}`);
   }
 
   return (
     <div
       className={classList}
       onClick={() => props.onClick(props.cords)}
-      onDrop={(e) => handleDrop(e)}
+      onDrop={(e) => props.onDrop(e, props.cords)}
       onDragOver={(e) => handleDragOver(e)}
       onDragLeave={(e) => handleDragLeave(e)}
     >

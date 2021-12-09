@@ -1,9 +1,11 @@
 import './board.css';
 import Square, { ISquareState } from '../square/Square';
+import { SyntheticEvent } from 'react';
 
 interface IBoardProps {
   board: ISquareState[];
   onSquareClick: (cord: string) => void;
+  handleDrop: (e: SyntheticEvent, cord: string) => void;
 }
 
 export default function Board(props: IBoardProps) {
@@ -15,6 +17,7 @@ export default function Board(props: IBoardProps) {
       onClick={props.onSquareClick}
       selected={i.selected}
       piece={i.piece}
+      onDrop={props.handleDrop}
     />
   ));
 
