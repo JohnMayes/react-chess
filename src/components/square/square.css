@@ -17,13 +17,9 @@
   font-size: 0.6em;
 }
 
-/* .selected {
-  background-color: red;
+.hover {
+  background-color: blue;
 }
-
-.selected-piece {
-  background-color: chartreuse;
-} */
 
 .chessPiece {
   width: 40px;

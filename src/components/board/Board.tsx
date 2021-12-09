@@ -6,6 +6,7 @@ interface IBoardProps {
   board: ISquareState[];
   onSquareClick: (cord: string) => void;
   handleDrop: (e: SyntheticEvent, cord: string) => void;
+  handleDragLeave: (e: SyntheticEvent, cord: string) => void;
 }
 
 export default function Board(props: IBoardProps) {
@@ -15,9 +16,10 @@ export default function Board(props: IBoardProps) {
       cords={i.cords}
       key={i.cords}
       onClick={props.onSquareClick}
-      selected={i.selected}
+      hasPiece={i.hasPiece}
       piece={i.piece}
       onDrop={props.handleDrop}
+      onDragLeave={props.handleDragLeave}
     />
   ));
 

@@ -10,6 +10,7 @@ import { ReactComponent as QueenW } from '../../assets/queen-white.svg';
 import { ReactComponent as QueenB } from '../../assets/queen-black.svg';
 import { ReactComponent as KingW } from '../../assets/king-white.svg';
 import { ReactComponent as KingB } from '../../assets/king-black.svg';
+import { useEffect } from 'react';
 
 const pieces = {
   PawnW: (

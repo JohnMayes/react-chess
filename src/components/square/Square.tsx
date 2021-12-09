@@ -1,18 +1,19 @@
 import './square.css';
 import pieces from '../pieces/Pieces';
-import { SyntheticEvent } from 'react';
+import { ReactElement, SyntheticEvent } from 'react';
 
 interface ISquareProps extends ISquareState {
   onClick: (cord: string) => void;
   onDrop: (e: SyntheticEvent, cord: string) => void;
+  onDragLeave: (e: SyntheticEvent, cord: string) => void;
 }
 
 export interface ISquareState {
   number: number;
   cords: string;
   key: string;
-  selected?: boolean;
-  piece: string;
+  hasPiece: boolean;
+  piece: undefined | ReactElement;
 }
 
 export default function Square(props: ISquareProps) {
@@ -24,48 +25,14 @@ export default function Square(props: ISquareProps) {
     classList += ' white';
   }
 
-  function checkPiece(str: string) {
-    switch (str) {
-      case 'pawnW':
-        return <div>{pieces.PawnW}</div>;
-      case 'pawnB':
-        return <div>{pieces.PawnB}</div>;
-      case 'rookW':
-        return <div>{pieces.RookW}</div>;
-      case 'rookB':
-        return <div>{pieces.RookB}</div>;
-      case 'knightW':
-        return <div>{pieces.KnightW}</div>;
-      case 'knightB':
-        return <div>{pieces.KnightB}</div>;
-      case 'bishopW':
-        return <div>{pieces.BishopW}</div>;
-      case 'bishopB':
-        return <div>{pieces.BishopB}</div>;
-      case 'queenW':
-        return <div>{pieces.QueenW}</div>;
-      case 'queenB':
-        return <div>{pieces.QueenB}</div>;
-      case 'kingW':
-        return <div>{pieces.KingW}</div>;
-      case 'kingB':
-        return <div>{pieces.KingB}</div>;
+  function checkPiece(bool: boolean) {
+    if (props.hasPiece) {
+      return props.piece;
     }
   }
 
-  // function handleDrop(e: SyntheticEvent) {
-  //   e.preventDefault();
-  //   console.log(` moved to ${props.cords}`);
-  //   setBoard()
-  // }
-
   function handleDragOver(e: SyntheticEvent) {
     e.preventDefault();
-  }
-
-  function handleDragLeave(e: SyntheticEvent) {
-    e.preventDefault();
-    // console.log(`${props.piece}`);
   }
 
   return (
@@ -74,10 +41,11 @@ export default function Square(props: ISquareProps) {
       onClick={() => props.onClick(props.cords)}
       onDrop={(e) => props.onDrop(e, props.cords)}
       onDragOver={(e) => handleDragOver(e)}
-      onDragLeave={(e) => handleDragLeave(e)}
+      onDragLeave={(e) => props.onDragLeave(e, props.cords)}
     >
       {/* <div className="cords">{props.cords}</div> */}
-      {checkPiece(props.piece)}
+
+      {checkPiece(props.hasPiece)}
     </div>
   );
 }
