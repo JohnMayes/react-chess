@@ -1,11 +1,10 @@
 import './square.css';
-import pieces from '../pieces/Pieces';
 import { ReactElement, SyntheticEvent } from 'react';
 
 interface ISquareProps extends ISquareState {
-  onClick: (cord: string) => void;
-  onDrop: (e: SyntheticEvent, cord: string) => void;
-  onDragLeave: (e: SyntheticEvent, cord: string) => void;
+  handleDrop: (e: SyntheticEvent, cord: string) => void;
+  handleDrag: (e: SyntheticEvent, cord: string) => void;
+  handleGrab: (e: SyntheticEvent, cord: string) => void;
 }
 
 export interface ISquareState {
@@ -31,17 +30,12 @@ export default function Square(props: ISquareProps) {
     }
   }
 
-  function handleDragOver(e: SyntheticEvent) {
-    e.preventDefault();
-  }
-
   return (
     <div
       className={classList}
-      onClick={() => props.onClick(props.cords)}
-      onDrop={(e) => props.onDrop(e, props.cords)}
-      onDragOver={(e) => handleDragOver(e)}
-      onDragLeave={(e) => props.onDragLeave(e, props.cords)}
+      onDragOver={(e) => props.handleDrag(e, props.cords)}
+      onDrop={(e) => props.handleDrop(e, props.cords)}
+      onDrag={(e) => props.handleGrab(e, props.cords)}
     >
       {/* <div className="cords">{props.cords}</div> */}
 

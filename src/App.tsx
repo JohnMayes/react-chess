@@ -1,6 +1,6 @@
 import './App.css';
 import Board from './components/board/Board';
-import { ISquareState } from './components/square/Square';
+import Square, { ISquareState } from './components/square/Square';
 import { SyntheticEvent, useState } from 'react';
 import pieces from './components/pieces/Pieces';
 
@@ -72,37 +72,44 @@ init.forEach((e) => {
 });
 
 function App() {
-  let [board, setBoard] = useState(init);
+  const [board, setBoard] = useState(init);
+  const [draggingPiece, setDraggingPiece] = useState(pieces.Nothing);
 
-  const onSquareClick = (cord: string) => {
-    const updatedBoard = board.map((square) => ({
-      ...square,
-      selected: square.cords === cord,
-    }));
-    setBoard(updatedBoard);
-  };
+  function handleDrag(e: SyntheticEvent, cord: string) {
+    e.preventDefault();
+  }
+
+  function handleGrab(e: SyntheticEvent, cord: string) {
+    e.preventDefault();
+    const find = board.find((square) => square.cords === cord);
+    if (find?.piece !== undefined) {
+      setDraggingPiece(find.piece);
+      const updatedBoard = board.map((square) => ({
+        ...square,
+        hasPiece: square.cords === cord ? false : square.hasPiece,
+      }));
+      setBoard(updatedBoard);
+    }
+  }
 
   function handleDrop(e: SyntheticEvent, cord: string) {
     e.preventDefault();
     const updatedBoard = board.map((square) => ({
       ...square,
-      hasPiece: true,
-      piece: square.cords === cord ? pieces.PawnW : square.piece,
+      hasPiece: square.cords === cord ? true : square.hasPiece,
+      piece: square.cords === cord ? draggingPiece : square.piece,
     }));
     setBoard(updatedBoard);
-  }
-
-  function handleDragLeave(e: SyntheticEvent, cord: string) {
-    e.preventDefault();
+    console.log('dropped!');
   }
 
   return (
     <div className="app">
       <Board
         board={board}
-        onSquareClick={onSquareClick}
+        handleDrag={handleDrag}
         handleDrop={handleDrop}
-        handleDragLeave={handleDragLeave}
+        handleGrab={handleGrab}
       />
     </div>
   );

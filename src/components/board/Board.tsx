@@ -4,9 +4,9 @@ import { SyntheticEvent } from 'react';
 
 interface IBoardProps {
   board: ISquareState[];
-  onSquareClick: (cord: string) => void;
   handleDrop: (e: SyntheticEvent, cord: string) => void;
-  handleDragLeave: (e: SyntheticEvent, cord: string) => void;
+  handleDrag: (e: SyntheticEvent, cord: string) => void;
+  handleGrab: (e: SyntheticEvent, cord: string) => void;
 }
 
 export default function Board(props: IBoardProps) {
@@ -15,11 +15,11 @@ export default function Board(props: IBoardProps) {
       number={i.number}
       cords={i.cords}
       key={i.cords}
-      onClick={props.onSquareClick}
       hasPiece={i.hasPiece}
       piece={i.piece}
-      onDrop={props.handleDrop}
-      onDragLeave={props.handleDragLeave}
+      handleDrag={props.handleDrag}
+      handleDrop={props.handleDrop}
+      handleGrab={props.handleGrab}
     />
   ));
 
