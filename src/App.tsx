@@ -71,6 +71,12 @@ init.forEach((e) => {
   }
 });
 
+function assertPiece(piece: any): asserts piece {
+  if (!piece) {
+    throw new TypeError('No piece!');
+  } else return piece;
+}
+
 function App() {
   const [board, setBoard] = useState(init);
   const [draggingPiece, setDraggingPiece] = useState(pieces.Nothing);
@@ -79,17 +85,20 @@ function App() {
     e.preventDefault();
   }
 
+  function toggleHasPiece(cord: string) {
+    const updatedBoard = board.map((square) => ({
+      ...square,
+      hasPiece: square.cords === cord ? !square.hasPiece : square.hasPiece,
+    }));
+    setBoard(updatedBoard);
+  }
+
   function handleGrab(e: SyntheticEvent, cord: string) {
     e.preventDefault();
     const find = board.find((square) => square.cords === cord);
-    if (find?.piece !== undefined) {
-      setDraggingPiece(find.piece);
-      const updatedBoard = board.map((square) => ({
-        ...square,
-        hasPiece: square.cords === cord ? false : square.hasPiece,
-      }));
-      setBoard(updatedBoard);
-    }
+    assertPiece(find?.piece);
+    setDraggingPiece(find?.piece);
+    toggleHasPiece(cord);
   }
 
   function handleDrop(e: SyntheticEvent, cord: string) {
