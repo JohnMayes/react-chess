@@ -18,61 +18,61 @@ const pieces = {
     </div>
   ),
   PawnB: (
-    <div draggable>
+    <div draggable="true">
       <PawnB className="chessPiece" />
     </div>
   ),
   RookW: (
-    <div draggable>
+    <div draggable="true">
       <RookW className="chessPiece" />
     </div>
   ),
   RookB: (
-    <div draggable>
+    <div draggable="true">
       <RookB className="chessPiece" />
     </div>
   ),
   KnightW: (
-    <div draggable>
+    <div draggable="true">
       <KnightW className="chessPiece" />
     </div>
   ),
   KnightB: (
-    <div draggable>
+    <div draggable="true">
       <KnightB className="chessPiece" />
     </div>
   ),
   BishopW: (
-    <div draggable>
+    <div draggable="true">
       <BishopW className="chessPiece" />
     </div>
   ),
   BishopB: (
-    <div draggable>
+    <div draggable="true">
       <BishopB className="chessPiece" />
     </div>
   ),
   QueenW: (
-    <div draggable>
+    <div draggable="true">
       <QueenW className="chessPiece" />
     </div>
   ),
   QueenB: (
-    <div draggable>
+    <div draggable="true">
       <QueenB className="chessPiece" />
     </div>
   ),
   KingW: (
-    <div draggable>
+    <div draggable="true">
       <KingW className="chessPiece" />
     </div>
   ),
   KingB: (
-    <div draggable>
+    <div draggable="true">
       <KingB className="chessPiece" />
     </div>
   ),
-  Nothing: <div draggable></div>,
+  Empty: <div draggable="true"></div>,
 };
 
 export default pieces;

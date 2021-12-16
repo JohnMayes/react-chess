@@ -4,7 +4,8 @@ import { ReactElement, SyntheticEvent } from 'react';
 interface ISquareProps extends ISquareState {
   handleDrop: (e: SyntheticEvent, cord: string) => void;
   handleDrag: (e: SyntheticEvent, cord: string) => void;
-  handleGrab: (e: SyntheticEvent, cord: string) => void;
+  handleGrab: (e: React.DragEvent<HTMLDivElement>, cord: string) => void;
+  handleDragOver: (e: SyntheticEvent, cord: string) => void;
 }
 
 export interface ISquareState {
@@ -12,7 +13,7 @@ export interface ISquareState {
   cords: string;
   key: string;
   hasPiece: boolean;
-  piece: undefined | ReactElement;
+  piece: any | ReactElement;
 }
 
 export default function Square(props: ISquareProps) {
@@ -24,22 +25,17 @@ export default function Square(props: ISquareProps) {
     classList += ' white';
   }
 
-  function checkPiece(bool: boolean) {
-    if (props.hasPiece) {
-      return props.piece;
-    }
-  }
-
   return (
     <div
       className={classList}
-      onDragOver={(e) => props.handleDrag(e, props.cords)}
+      onDragStart={(e) => props.handleGrab(e, props.cords)}
+      onDrag={(e) => props.handleDrag(e, props.cords)}
+      onDragOver={(e) => props.handleDragOver(e, props.cords)}
       onDrop={(e) => props.handleDrop(e, props.cords)}
-      onDrag={(e) => props.handleGrab(e, props.cords)}
     >
-      {/* <div className="cords">{props.cords}</div> */}
+      <div className="cords">{props.cords}</div>
 
-      {checkPiece(props.hasPiece)}
+      {props.piece}
     </div>
   );
 }

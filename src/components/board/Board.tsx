@@ -6,7 +6,8 @@ interface IBoardProps {
   board: ISquareState[];
   handleDrop: (e: SyntheticEvent, cord: string) => void;
   handleDrag: (e: SyntheticEvent, cord: string) => void;
-  handleGrab: (e: SyntheticEvent, cord: string) => void;
+  handleGrab: (e: React.DragEvent<HTMLDivElement>, cord: string) => void;
+  handleDragOver: (e: SyntheticEvent, cord: string) => void;
 }
 
 export default function Board(props: IBoardProps) {
@@ -20,6 +21,7 @@ export default function Board(props: IBoardProps) {
       handleDrag={props.handleDrag}
       handleDrop={props.handleDrop}
       handleGrab={props.handleGrab}
+      handleDragOver={props.handleDragOver}
     />
   ));
 

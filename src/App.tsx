@@ -1,6 +1,6 @@
 import './App.css';
 import Board from './components/board/Board';
-import Square, { ISquareState } from './components/square/Square';
+import { ISquareState } from './components/square/Square';
 import { SyntheticEvent, useState } from 'react';
 import pieces from './components/pieces/Pieces';
 
@@ -14,7 +14,7 @@ for (let i = yAxis.length - 1; i >= 0; i--) {
     const number = j + i + 2;
     const cords = `${xAxis[j]}${yAxis[i]}`;
     const key = cords;
-    let piece = undefined;
+    let piece = pieces.Empty;
     let hasPiece = false;
     init.push({ number, cords, key, piece, hasPiece });
   }
@@ -79,11 +79,7 @@ function assertPiece(piece: any): asserts piece {
 
 function App() {
   const [board, setBoard] = useState(init);
-  const [draggingPiece, setDraggingPiece] = useState(pieces.Nothing);
-
-  function handleDrag(e: SyntheticEvent, cord: string) {
-    e.preventDefault();
-  }
+  const [draggingPiece, setDraggingPiece] = useState(pieces.Empty);
 
   function toggleHasPiece(cord: string) {
     const updatedBoard = board.map((square) => ({
@@ -93,23 +89,39 @@ function App() {
     setBoard(updatedBoard);
   }
 
-  function handleGrab(e: SyntheticEvent, cord: string) {
-    e.preventDefault();
+  function setPiece(cord: string) {
+    const updatedBoard = board.map((square) => ({
+      ...square,
+      piece: square.cords === cord ? draggingPiece : square.piece,
+    }));
+
+    setBoard(updatedBoard);
+  }
+
+  function handleGrab(e: React.DragEvent<HTMLDivElement>, cord: string) {
     const find = board.find((square) => square.cords === cord);
     assertPiece(find?.piece);
     setDraggingPiece(find?.piece);
     toggleHasPiece(cord);
+    const updatedBoard = board.map((square) => ({
+      ...square,
+      piece: square.cords === cord ? pieces.Empty : square.piece,
+    }));
+    setBoard(updatedBoard);
+  }
+
+  function handleDrag(e: SyntheticEvent, cord: string) {
+    e.preventDefault();
+  }
+
+  function handleDragOver(e: SyntheticEvent, cord: string) {
+    e.preventDefault();
   }
 
   function handleDrop(e: SyntheticEvent, cord: string) {
     e.preventDefault();
-    const updatedBoard = board.map((square) => ({
-      ...square,
-      hasPiece: square.cords === cord ? true : square.hasPiece,
-      piece: square.cords === cord ? draggingPiece : square.piece,
-    }));
-    setBoard(updatedBoard);
-    console.log('dropped!');
+    toggleHasPiece(cord);
+    setPiece(cord);
   }
 
   return (
@@ -117,6 +129,7 @@ function App() {
       <Board
         board={board}
         handleDrag={handleDrag}
+        handleDragOver={handleDragOver}
         handleDrop={handleDrop}
         handleGrab={handleGrab}
       />
