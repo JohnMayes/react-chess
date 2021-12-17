@@ -1,13 +1,8 @@
 import './board.css';
-import Square, { ISquareState } from '../square/Square';
-import { SyntheticEvent } from 'react';
+import Square, { ISquareState, ISquareProps } from '../square/Square';
 
-interface IBoardProps {
+interface IBoardProps extends ISquareProps {
   board: ISquareState[];
-  handleDrop: (e: SyntheticEvent, cord: string) => void;
-  handleDrag: (e: SyntheticEvent, cord: string) => void;
-  handleGrab: (e: React.DragEvent<HTMLDivElement>, cord: string) => void;
-  handleDragOver: (e: SyntheticEvent, cord: string) => void;
 }
 
 export default function Board(props: IBoardProps) {
@@ -18,9 +13,9 @@ export default function Board(props: IBoardProps) {
       key={i.cords}
       hasPiece={i.hasPiece}
       piece={i.piece}
-      handleDrag={props.handleDrag}
+      handleDragEnd={props.handleDragEnd}
       handleDrop={props.handleDrop}
-      handleGrab={props.handleGrab}
+      handleDragStart={props.handleDragStart}
       handleDragOver={props.handleDragOver}
     />
   ));

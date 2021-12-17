@@ -1,11 +1,11 @@
 import './square.css';
-import { ReactElement, SyntheticEvent } from 'react';
+import { ReactElement } from 'react';
 
-interface ISquareProps extends ISquareState {
-  handleDrop: (e: SyntheticEvent, cord: string) => void;
-  handleDrag: (e: SyntheticEvent, cord: string) => void;
-  handleGrab: (e: React.DragEvent<HTMLDivElement>, cord: string) => void;
-  handleDragOver: (e: SyntheticEvent, cord: string) => void;
+export interface ISquareProps {
+  handleDrop: (e: React.DragEvent<HTMLDivElement>, cord: string) => void;
+  handleDragEnd: (e: React.DragEvent<HTMLDivElement>, cord: string) => void;
+  handleDragStart: (e: React.DragEvent<HTMLDivElement>, cord: string) => void;
+  handleDragOver: (e: React.DragEvent<HTMLDivElement>, cord: string) => void;
 }
 
 export interface ISquareState {
@@ -16,7 +16,7 @@ export interface ISquareState {
   piece: any | ReactElement;
 }
 
-export default function Square(props: ISquareProps) {
+export default function Square(props: ISquareProps & ISquareState) {
   let classList = 'board-square';
 
   if (props.number % 2 === 0) {
@@ -28,8 +28,8 @@ export default function Square(props: ISquareProps) {
   return (
     <div
       className={classList}
-      onDragStart={(e) => props.handleGrab(e, props.cords)}
-      onDrag={(e) => props.handleDrag(e, props.cords)}
+      onDragStart={(e) => props.handleDragStart(e, props.cords)}
+      onDragEnd={(e) => props.handleDragEnd(e, props.cords)}
       onDragOver={(e) => props.handleDragOver(e, props.cords)}
       onDrop={(e) => props.handleDrop(e, props.cords)}
     >

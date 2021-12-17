@@ -1,7 +1,7 @@
 import './App.css';
 import Board from './components/board/Board';
 import { ISquareState } from './components/square/Square';
-import { SyntheticEvent, useState } from 'react';
+import { useState } from 'react';
 import pieces from './components/pieces/Pieces';
 
 const xAxis = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
@@ -89,7 +89,7 @@ function App() {
     setBoard(updatedBoard);
   }
 
-  function setPiece(cord: string) {
+  function placePiece(cord: string) {
     const updatedBoard = board.map((square) => ({
       ...square,
       piece: square.cords === cord ? draggingPiece : square.piece,
@@ -98,41 +98,47 @@ function App() {
     setBoard(updatedBoard);
   }
 
-  function handleGrab(e: React.DragEvent<HTMLDivElement>, cord: string) {
-    const find = board.find((square) => square.cords === cord);
-    assertPiece(find?.piece);
-    setDraggingPiece(find?.piece);
-    toggleHasPiece(cord);
+  function removePiece(cord: string) {
     const updatedBoard = board.map((square) => ({
       ...square,
       piece: square.cords === cord ? pieces.Empty : square.piece,
     }));
+
     setBoard(updatedBoard);
   }
 
-  function handleDrag(e: SyntheticEvent, cord: string) {
+  function handleDragStart(e: React.DragEvent<HTMLDivElement>, cord: string) {
+    const find = board.find((square) => square.cords === cord);
+    assertPiece(find?.piece);
+    setDraggingPiece(find?.piece);
+    toggleHasPiece(cord);
+  }
+
+  function handleDragEnd(e: React.DragEvent<HTMLDivElement>, cord: string) {
+    e.preventDefault();
+    removePiece(cord);
+  }
+
+  function handleDragOver(e: React.DragEvent<HTMLDivElement>, cord: string) {
     e.preventDefault();
   }
 
-  function handleDragOver(e: SyntheticEvent, cord: string) {
-    e.preventDefault();
-  }
-
-  function handleDrop(e: SyntheticEvent, cord: string) {
+  function handleDrop(e: React.DragEvent<HTMLDivElement>, cord: string) {
     e.preventDefault();
     toggleHasPiece(cord);
-    setPiece(cord);
+    placePiece(cord);
   }
 
   return (
     <div className="app">
       <Board
         board={board}
-        handleDrag={handleDrag}
+        handleDragEnd={handleDragEnd}
         handleDragOver={handleDragOver}
         handleDrop={handleDrop}
-        handleGrab={handleGrab}
+        handleDragStart={handleDragStart}
       />
+      <div>{pieces.PawnB}</div>
     </div>
   );
 }
