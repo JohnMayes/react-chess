@@ -35,7 +35,7 @@ export default function Square(props: ISquareProps & ISquareState) {
     >
       <div className="cords">{props.cords}</div>
 
-      {props.piece}
+      <div draggable="true">{props.piece}</div>
     </div>
   );
 }

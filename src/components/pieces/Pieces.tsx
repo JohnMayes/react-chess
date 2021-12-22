@@ -12,67 +12,19 @@ import { ReactComponent as KingW } from '../../assets/king-white.svg';
 import { ReactComponent as KingB } from '../../assets/king-black.svg';
 
 const pieces = {
-  PawnW: (
-    <div draggable>
-      <PawnW className="chessPiece" />
-    </div>
-  ),
-  PawnB: (
-    <div draggable="true">
-      <PawnB className="chessPiece" />
-    </div>
-  ),
-  RookW: (
-    <div draggable="true">
-      <RookW className="chessPiece" />
-    </div>
-  ),
-  RookB: (
-    <div draggable="true">
-      <RookB className="chessPiece" />
-    </div>
-  ),
-  KnightW: (
-    <div draggable="true">
-      <KnightW className="chessPiece" />
-    </div>
-  ),
-  KnightB: (
-    <div draggable="true">
-      <KnightB className="chessPiece" />
-    </div>
-  ),
-  BishopW: (
-    <div draggable="true">
-      <BishopW className="chessPiece" />
-    </div>
-  ),
-  BishopB: (
-    <div draggable="true">
-      <BishopB className="chessPiece" />
-    </div>
-  ),
-  QueenW: (
-    <div draggable="true">
-      <QueenW className="chessPiece" />
-    </div>
-  ),
-  QueenB: (
-    <div draggable="true">
-      <QueenB className="chessPiece" />
-    </div>
-  ),
-  KingW: (
-    <div draggable="true">
-      <KingW className="chessPiece" />
-    </div>
-  ),
-  KingB: (
-    <div draggable="true">
-      <KingB className="chessPiece" />
-    </div>
-  ),
-  Empty: <div draggable="true"></div>,
+  PawnW: <PawnW className="chessPiece" />,
+  PawnB: <PawnB className="chessPiece" />,
+  RookW: <RookW className="chessPiece" />,
+  RookB: <RookB className="chessPiece" />,
+  KnightW: <KnightW className="chessPiece" />,
+  KnightB: <KnightB className="chessPiece" />,
+  BishopW: <BishopW className="chessPiece" />,
+  BishopB: <BishopB className="chessPiece" />,
+  QueenW: <QueenW className="chessPiece" />,
+  QueenB: <QueenB className="chessPiece" />,
+  KingW: <KingW className="chessPiece" />,
+  KingB: <KingB className="chessPiece" />,
+  Empty: <div></div>,
 };
 
 export default pieces;

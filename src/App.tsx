@@ -138,7 +138,6 @@ function App() {
         handleDrop={handleDrop}
         handleDragStart={handleDragStart}
       />
-      <div>{pieces.PawnB}</div>
     </div>
   );
 }
