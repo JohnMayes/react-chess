@@ -1,3 +1,4 @@
+import React from 'react';
 import { ReactComponent as PawnW } from '../../assets/pawn-white.svg';
 import { ReactComponent as PawnB } from '../../assets/pawn-black.svg';
 import { ReactComponent as RookW } from '../../assets/rook-white.svg';
@@ -24,7 +25,6 @@ const pieces = {
   QueenB: <QueenB className="chessPiece" />,
   KingW: <KingW className="chessPiece" />,
   KingB: <KingB className="chessPiece" />,
-  Empty: <div></div>,
 };
 
 export default pieces;

@@ -3,3 +3,12 @@
   place-content: center;
   height: 100vh;
 }
+
+.background {
+  width: 540px;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f3ddcf;
+}

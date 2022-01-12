@@ -13,12 +13,12 @@
   background-color: #f3ddcf;
 }
 
-.cords {
-  font-size: 0.6em;
+.hover {
+  border: 5px solid blue;
 }
 
-.hover {
-  background-color: blue;
+.cords {
+  font-size: 0.6em;
 }
 
 .chessPiece {

@@ -1,20 +1,7 @@
 import './square.css';
+import { ISquareState, ISquareProps } from '../../constants/constants';
+import pieces from '../pieces/Pieces';
 import { ReactElement } from 'react';
-
-export interface ISquareProps {
-  handleDrop: (e: React.DragEvent<HTMLDivElement>, cord: string) => void;
-  handleDragEnd: (e: React.DragEvent<HTMLDivElement>, cord: string) => void;
-  handleDragStart: (e: React.DragEvent<HTMLDivElement>, cord: string) => void;
-  handleDragOver: (e: React.DragEvent<HTMLDivElement>, cord: string) => void;
-}
-
-export interface ISquareState {
-  number: number;
-  cords: string;
-  key: string;
-  hasPiece: boolean;
-  piece: any | ReactElement;
-}
 
 export default function Square(props: ISquareProps & ISquareState) {
   let classList = 'board-square';
@@ -25,6 +12,10 @@ export default function Square(props: ISquareProps & ISquareState) {
     classList += ' white';
   }
 
+  const returnPiece = (string: string, object: any): ReactElement => {
+    return object[string];
+  };
+
   return (
     <div
       className={classList}
@@ -34,8 +25,7 @@ export default function Square(props: ISquareProps & ISquareState) {
       onDrop={(e) => props.handleDrop(e, props.cords)}
     >
       <div className="cords">{props.cords}</div>
-
-      <div draggable="true">{props.piece}</div>
+      <div draggable="true">{returnPiece(props.piece, pieces)}</div>
     </div>
   );
 }

@@ -1,143 +1,108 @@
 import './App.css';
 import Board from './components/board/Board';
-import { ISquareState } from './components/square/Square';
-import { useState } from 'react';
-import pieces from './components/pieces/Pieces';
-
-const xAxis = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-const yAxis = ['1', '2', '3', '4', '5', '6', '7', '8'];
+import { ReactComponentElement, ReactElement, useState } from 'react';
+import {
+  initializeBoardState,
+  findPiece,
+  capturePiece,
+  placeDraggingPiece,
+  removeDraggedPiece,
+  ISquareState,
+} from './constants/constants';
 
 let init: ISquareState[] = [];
 
-for (let i = yAxis.length - 1; i >= 0; i--) {
-  for (let j = 0; j < xAxis.length; j++) {
-    const number = j + i + 2;
-    const cords = `${xAxis[j]}${yAxis[i]}`;
-    const key = cords;
-    let piece = pieces.Empty;
-    let hasPiece = false;
-    init.push({ number, cords, key, piece, hasPiece });
-  }
-}
+initializeBoardState(init);
 
-init.forEach((e) => {
-  if (/2$/.test(e.cords)) {
-    e.piece = pieces.PawnW;
-    e.hasPiece = true;
-  }
-  if (/7$/.test(e.cords)) {
-    e.piece = pieces.PawnB;
-    e.hasPiece = true;
-  }
-  if (/a1|h1/.test(e.cords)) {
-    e.piece = pieces.RookW;
-    e.hasPiece = true;
-  }
-  if (/a8|h8/.test(e.cords)) {
-    e.piece = pieces.RookB;
-    e.hasPiece = true;
-  }
-  if (/b1|g1/.test(e.cords)) {
-    e.piece = pieces.KnightW;
-    e.hasPiece = true;
-  }
-  if (/b8|g8/.test(e.cords)) {
-    e.piece = pieces.KnightB;
-    e.hasPiece = true;
-  }
-  if (/c1|f1/.test(e.cords)) {
-    e.piece = pieces.BishopW;
-    e.hasPiece = true;
-  }
-  if (/c8|f8/.test(e.cords)) {
-    e.piece = pieces.BishopB;
-    e.hasPiece = true;
-  }
-  if (/d1/.test(e.cords)) {
-    e.piece = pieces.QueenW;
-    e.hasPiece = true;
-  }
-  if (/d8/.test(e.cords)) {
-    e.piece = pieces.QueenB;
-    e.hasPiece = true;
-  }
-  if (/e1/.test(e.cords)) {
-    e.piece = pieces.KingW;
-    e.hasPiece = true;
-  }
-  if (/e8/.test(e.cords)) {
-    e.piece = pieces.KingB;
-    e.hasPiece = true;
-  }
-});
+// Write a function that uses computed properties to take a string and return the react element
+// const returnPiece = (string: any, object: any): ReactElement => {
+//   return object[string]
+// }
 
-function assertPiece(piece: any): asserts piece {
-  if (!piece) {
-    throw new TypeError('No piece!');
-  } else return piece;
-}
+// Move Pieces import into Square Component
+
+// Replace all 'peices' props and state to strings
 
 function App() {
   const [board, setBoard] = useState(init);
-  const [draggingPiece, setDraggingPiece] = useState(pieces.Empty);
+  const [draggingPiece, setDraggingPiece] = useState('');
+  const [capturedPieces, setCapturedPieces] = useState([]);
 
-  function toggleHasPiece(cord: string) {
-    const updatedBoard = board.map((square) => ({
-      ...square,
-      hasPiece: square.cords === cord ? !square.hasPiece : square.hasPiece,
+  // function toggleHasPiece(cord: string) {
+  //   const updatedBoard = board.map((square) => ({
+  //     ...square,
+  //     hasPiece: square.cords === cord ? !square.hasPiece : square.hasPiece,
+  //   }));
+  //   const find = updatedBoard.find((square) => square.cords === cord);
+  //   console.log(`${find?.cords}: ${find?.hasPiece}`);
+  //   setBoard(updatedBoard);
+  // }
+
+  const [move, setMove] = useState<{ from: string; to: string }>({
+    from: '',
+    to: '',
+  });
+
+  const onDragStart = (cord: string) => {
+    setMove((move) => ({
+      ...move,
+      from: cord,
+      to: '',
     }));
-    setBoard(updatedBoard);
-  }
+  };
 
-  function placePiece(cord: string) {
-    const updatedBoard = board.map((square) => ({
-      ...square,
-      piece: square.cords === cord ? draggingPiece : square.piece,
+  const onDragMove = (cord: string) => {
+    setMove((move) => ({
+      ...move,
+      to: cord,
     }));
+  };
 
-    setBoard(updatedBoard);
+  function handleDragStart(e: React.DragEvent, cord: string) {
+    onDragStart(cord);
+    const draggingPiece = findPiece(cord, board);
+    setDraggingPiece(draggingPiece);
+    const removedPiece = removeDraggedPiece(cord, board);
+    setBoard(removedPiece);
   }
 
-  function removePiece(cord: string) {
-    const updatedBoard = board.map((square) => ({
-      ...square,
-      piece: square.cords === cord ? pieces.Empty : square.piece,
-    }));
-
-    setBoard(updatedBoard);
-  }
-
-  function handleDragStart(e: React.DragEvent<HTMLDivElement>, cord: string) {
-    const find = board.find((square) => square.cords === cord);
-    assertPiece(find?.piece);
-    setDraggingPiece(find?.piece);
-    toggleHasPiece(cord);
-  }
-
-  function handleDragEnd(e: React.DragEvent<HTMLDivElement>, cord: string) {
-    e.preventDefault();
-    removePiece(cord);
-  }
-
-  function handleDragOver(e: React.DragEvent<HTMLDivElement>, cord: string) {
+  function handleDragOver(e: React.DragEvent, cord: string) {
     e.preventDefault();
   }
 
-  function handleDrop(e: React.DragEvent<HTMLDivElement>, cord: string) {
+  function handleDragEnd(e: React.DragEvent, cord: string) {
     e.preventDefault();
-    toggleHasPiece(cord);
-    placePiece(cord);
   }
+
+  function handleDrop(e: React.DragEvent, cord: string) {
+    e.preventDefault();
+    onDragMove(cord);
+    // Capture piece
+    const piece = findPiece(cord, board);
+    const captured = capturePiece(capturedPieces, piece);
+    // setCapturedPieces(captured);
+    // Place new Piece
+    const placedPiece = placeDraggingPiece(cord, board, draggingPiece);
+    setBoard(placedPiece);
+  }
+  console.log(move);
 
   return (
     <div className="app">
-      <Board
-        board={board}
-        handleDragEnd={handleDragEnd}
-        handleDragOver={handleDragOver}
-        handleDrop={handleDrop}
-        handleDragStart={handleDragStart}
-      />
+      <div className="background">
+        <Board
+          board={board}
+          handleDragStart={handleDragStart}
+          handleDragOver={handleDragOver}
+          handleDragEnd={handleDragEnd}
+          handleDrop={handleDrop}
+        />
+        <div>
+          {capturedPieces.map((i) => {
+            return <span>{i}</span>;
+          })}
+        </div>
+      </div>
     </div>
   );
 }
