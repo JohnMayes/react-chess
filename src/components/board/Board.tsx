@@ -1,7 +1,6 @@
 import './board.css';
 import Square from '../square/Square';
 import { ISquareState, ISquareProps } from '../../constants/constants';
-import React, { useState } from 'react';
 
 interface IBoardProps extends ISquareProps {
   board: ISquareState[];

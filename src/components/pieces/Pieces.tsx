@@ -1,4 +1,3 @@
-import React from 'react';
 import { ReactComponent as PawnW } from '../../assets/pawn-white.svg';
 import { ReactComponent as PawnB } from '../../assets/pawn-black.svg';
 import { ReactComponent as RookW } from '../../assets/rook-white.svg';
@@ -11,8 +10,9 @@ import { ReactComponent as QueenW } from '../../assets/queen-white.svg';
 import { ReactComponent as QueenB } from '../../assets/queen-black.svg';
 import { ReactComponent as KingW } from '../../assets/king-white.svg';
 import { ReactComponent as KingB } from '../../assets/king-black.svg';
+import { PiecesType } from '../../constants/constants';
 
-const pieces = {
+const pieces: PiecesType = {
   PawnW: <PawnW className="chessPiece" />,
   PawnB: <PawnB className="chessPiece" />,
   RookW: <RookW className="chessPiece" />,

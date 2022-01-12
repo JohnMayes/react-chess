@@ -1,6 +1,6 @@
 import './App.css';
 import Board from './components/board/Board';
-import { ReactComponentElement, ReactElement, useState } from 'react';
+import Sidebar from './components/sidebar/Sidebar';
 import {
   initializeBoardState,
   findPiece,
@@ -9,24 +9,22 @@ import {
   removeDraggedPiece,
   ISquareState,
 } from './constants/constants';
+import { useState } from 'react';
 
 let init: ISquareState[] = [];
 
 initializeBoardState(init);
 
-// Write a function that uses computed properties to take a string and return the react element
-// const returnPiece = (string: any, object: any): ReactElement => {
-//   return object[string]
-// }
-
-// Move Pieces import into Square Component
-
-// Replace all 'peices' props and state to strings
-
 function App() {
   const [board, setBoard] = useState(init);
-  const [draggingPiece, setDraggingPiece] = useState('');
   const [capturedPieces, setCapturedPieces] = useState([]);
+  const [move, setMove] = useState<{ piece: string; from: string; to: string }>(
+    {
+      piece: '',
+      from: '',
+      to: '',
+    }
+  );
 
   // function toggleHasPiece(cord: string) {
   //   const updatedBoard = board.map((square) => ({
@@ -38,20 +36,16 @@ function App() {
   //   setBoard(updatedBoard);
   // }
 
-  const [move, setMove] = useState<{ from: string; to: string }>({
-    from: '',
-    to: '',
-  });
-
-  const onDragStart = (cord: string) => {
+  const setMoveStart = (piece: string, cord: string) => {
     setMove((move) => ({
       ...move,
+      piece: piece,
       from: cord,
       to: '',
     }));
   };
 
-  const onDragMove = (cord: string) => {
+  const setMoveEnd = (cord: string) => {
     setMove((move) => ({
       ...move,
       to: cord,
@@ -59,11 +53,8 @@ function App() {
   };
 
   function handleDragStart(e: React.DragEvent, cord: string) {
-    onDragStart(cord);
     const draggingPiece = findPiece(cord, board);
-    setDraggingPiece(draggingPiece);
-    const removedPiece = removeDraggedPiece(cord, board);
-    setBoard(removedPiece);
+    setMoveStart(draggingPiece, cord);
   }
 
   function handleDragOver(e: React.DragEvent, cord: string) {
@@ -72,17 +63,19 @@ function App() {
 
   function handleDragEnd(e: React.DragEvent, cord: string) {
     e.preventDefault();
+    const removedPiece = removeDraggedPiece(move.from, board);
+    setBoard(removedPiece);
   }
 
   function handleDrop(e: React.DragEvent, cord: string) {
     e.preventDefault();
-    onDragMove(cord);
+    setMoveEnd(cord);
     // Capture piece
     const piece = findPiece(cord, board);
-    const captured = capturePiece(capturedPieces, piece);
-    // setCapturedPieces(captured);
+    capturePiece(capturedPieces, piece);
+    //setCapturedPieces(captured);
     // Place new Piece
-    const placedPiece = placeDraggingPiece(cord, board, draggingPiece);
+    const placedPiece = placeDraggingPiece(cord, board, move.piece);
     setBoard(placedPiece);
   }
   console.log(move);
@@ -97,11 +90,8 @@ function App() {
           handleDragEnd={handleDragEnd}
           handleDrop={handleDrop}
         />
-        <div>
-          {capturedPieces.map((i) => {
-            return <span>{i}</span>;
-          })}
-        </div>
+
+        <Sidebar capturedPieces={capturedPieces} />
       </div>
     </div>
   );

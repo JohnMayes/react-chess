@@ -1,5 +1,5 @@
-import pieces from '../components/pieces/Pieces';
 import React from 'react';
+import { ReactElement } from 'react';
 
 // INTERFACES
 export interface ISquareProps {
@@ -17,6 +17,23 @@ export interface ISquareState {
   hasPiece: boolean;
   piece: string;
 }
+
+// TYPES
+
+export type PiecesType = {
+  PawnW: ReactElement;
+  PawnB: ReactElement;
+  RookW: ReactElement;
+  RookB: ReactElement;
+  KnightW: ReactElement;
+  KnightB: ReactElement;
+  BishopW: ReactElement;
+  BishopB: ReactElement;
+  QueenW: ReactElement;
+  QueenB: ReactElement;
+  KingW: ReactElement;
+  KingB: ReactElement;
+};
 
 //  BOARD STATE
 
@@ -105,6 +122,15 @@ export const findPiece = (cord: string, arr: ISquareState[]): string => {
   const find = arr.find((square) => square.cords === cord);
   return ensure(find?.piece);
 };
+
+export const getPieceFromKey = (
+  key: string,
+  object: PiecesType
+): ReactElement => {
+  return object[key as keyof typeof object];
+};
+
+// FUNCTIONS THAT INTERACT WITH BOARD STATE
 
 export const capturePiece = (state: string[], piece: string): string[] => {
   const pieceArr = state;
