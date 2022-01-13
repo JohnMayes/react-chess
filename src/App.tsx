@@ -9,7 +9,7 @@ import {
   removeDraggedPiece,
   ISquareState,
 } from './constants/constants';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 let init: ISquareState[] = [];
 
@@ -52,22 +52,22 @@ function App() {
     }));
   };
 
-  function handleDragStart(e: React.DragEvent, cord: string) {
+  const handleDragStart = (e: React.DragEvent, cord: string) => {
     const draggingPiece = findPiece(cord, board);
     setMoveStart(draggingPiece, cord);
-  }
+  };
 
-  function handleDragOver(e: React.DragEvent, cord: string) {
+  const handleDragOver = (e: React.DragEvent, cord: string) => {
     e.preventDefault();
-  }
+  };
 
-  function handleDragEnd(e: React.DragEvent, cord: string) {
+  const handleDragEnd = (e: React.DragEvent, cord: string) => {
     e.preventDefault();
     const removedPiece = removeDraggedPiece(move.from, board);
     setBoard(removedPiece);
-  }
+  };
 
-  function handleDrop(e: React.DragEvent, cord: string) {
+  const handleDrop = (e: React.DragEvent, cord: string) => {
     e.preventDefault();
     setMoveEnd(cord);
     // Capture piece
@@ -77,7 +77,8 @@ function App() {
     // Place new Piece
     const placedPiece = placeDraggingPiece(cord, board, move.piece);
     setBoard(placedPiece);
-  }
+  };
+
   console.log(move);
 
   return (
