@@ -9,7 +9,12 @@ import {
   removeDraggedPiece,
   ISquareState,
 } from './constants/constants';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState, forwardRef } from 'react';
+
+import Chess, { ChessInstance } from 'chess.js';
+type ChessType = (fen?: string) => ChessInstance;
+const ChessImport = Chess as unknown;
+const Chess2 = ChessImport as ChessType;
 
 let init: ISquareState[] = [];
 
@@ -26,15 +31,13 @@ function App() {
     }
   );
 
-  // function toggleHasPiece(cord: string) {
-  //   const updatedBoard = board.map((square) => ({
-  //     ...square,
-  //     hasPiece: square.cords === cord ? !square.hasPiece : square.hasPiece,
-  //   }));
-  //   const find = updatedBoard.find((square) => square.cords === cord);
-  //   console.log(`${find?.cords}: ${find?.hasPiece}`);
-  //   setBoard(updatedBoard);
-  // }
+  let game = Chess2();
+
+  game.move('e4');
+  console.log(game.ascii());
+  // const chess = useRef(new Chess());
+
+  // console.log(Object.values(chess.current.get('e8')).join(''));
 
   const setMoveStart = (piece: string, cord: string) => {
     setMove((move) => ({
@@ -78,8 +81,6 @@ function App() {
     const placedPiece = placeDraggingPiece(cord, board, move.piece);
     setBoard(placedPiece);
   };
-
-  console.log(move);
 
   return (
     <div className="app">
