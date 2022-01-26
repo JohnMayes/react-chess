@@ -1,38 +1,35 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import { ReactElement } from 'react';
 
 // INTERFACES
 export interface ISquareProps {
-  handleDrop: (e: React.DragEvent, cord: string) => void;
-  handleDragEnd: (e: React.DragEvent, cord: string) => void;
-  handleDragStart: (e: React.DragEvent, cord: string) => void;
-  handleDragOver: (e: React.DragEvent, cord: string) => void;
-  override?: React.HTMLAttributes<HTMLDivElement>;
+  handleClick: (e: SyntheticEvent, cord: string) => void;
 }
 
 export interface ISquareState {
   number: number;
-  cords: string;
+  cord: string;
   key: string;
-  hasPiece: boolean;
   piece: string;
+  selected: boolean;
+  canMove: boolean;
 }
 
 // TYPES
 
 export type PiecesType = {
-  PawnW: ReactElement;
-  PawnB: ReactElement;
-  RookW: ReactElement;
-  RookB: ReactElement;
-  KnightW: ReactElement;
-  KnightB: ReactElement;
-  BishopW: ReactElement;
-  BishopB: ReactElement;
-  QueenW: ReactElement;
-  QueenB: ReactElement;
-  KingW: ReactElement;
-  KingB: ReactElement;
+  pw: ReactElement;
+  pb: ReactElement;
+  rw: ReactElement;
+  rb: ReactElement;
+  nw: ReactElement;
+  nb: ReactElement;
+  bw: ReactElement;
+  bb: ReactElement;
+  qw: ReactElement;
+  qb: ReactElement;
+  kw: ReactElement;
+  kb: ReactElement;
 };
 
 //  BOARD STATE
@@ -44,62 +41,51 @@ export const initializeBoardState = (arr: ISquareState[]): ISquareState[] => {
   for (let i = yAxis.length - 1; i >= 0; i--) {
     for (let j = 0; j < xAxis.length; j++) {
       const number = j + i + 2;
-      const cords = `${xAxis[j]}${yAxis[i]}`;
-      const key = cords;
+      const cord = `${xAxis[j]}${yAxis[i]}`;
+      const key = cord;
       const piece = '';
-      const hasPiece = false;
-      arr.push({ number, cords, key, piece, hasPiece });
+      const selected = false;
+      const canMove = false;
+      arr.push({ number, cord, key, piece, selected, canMove });
     }
   }
 
   arr.forEach((e) => {
-    if (/2$/.test(e.cords)) {
-      e.piece = 'PawnW';
-      e.hasPiece = true;
+    if (/2$/.test(e.cord)) {
+      e.piece = 'pw';
     }
-    if (/7$/.test(e.cords)) {
-      e.piece = 'PawnB';
-      e.hasPiece = true;
+    if (/7$/.test(e.cord)) {
+      e.piece = 'pb';
     }
-    if (/a1|h1/.test(e.cords)) {
-      e.piece = 'RookW';
-      e.hasPiece = true;
+    if (/a1|h1/.test(e.cord)) {
+      e.piece = 'rw';
     }
-    if (/a8|h8/.test(e.cords)) {
-      e.piece = 'RookB';
-      e.hasPiece = true;
+    if (/a8|h8/.test(e.cord)) {
+      e.piece = 'rb';
     }
-    if (/b1|g1/.test(e.cords)) {
-      e.piece = 'KnightW';
-      e.hasPiece = true;
+    if (/b1|g1/.test(e.cord)) {
+      e.piece = 'nw';
     }
-    if (/b8|g8/.test(e.cords)) {
-      e.piece = 'KnightB';
-      e.hasPiece = true;
+    if (/b8|g8/.test(e.cord)) {
+      e.piece = 'nb';
     }
-    if (/c1|f1/.test(e.cords)) {
-      e.piece = 'BishopW';
-      e.hasPiece = true;
+    if (/c1|f1/.test(e.cord)) {
+      e.piece = 'bw';
     }
-    if (/c8|f8/.test(e.cords)) {
-      e.piece = 'BishopB';
-      e.hasPiece = true;
+    if (/c8|f8/.test(e.cord)) {
+      e.piece = 'bb';
     }
-    if (/d1/.test(e.cords)) {
-      e.piece = 'QueenW';
-      e.hasPiece = true;
+    if (/d1/.test(e.cord)) {
+      e.piece = 'qw';
     }
-    if (/d8/.test(e.cords)) {
-      e.piece = 'QueenB';
-      e.hasPiece = true;
+    if (/d8/.test(e.cord)) {
+      e.piece = 'qb';
     }
-    if (/e1/.test(e.cords)) {
-      e.piece = 'KingW';
-      e.hasPiece = true;
+    if (/e1/.test(e.cord)) {
+      e.piece = 'kw';
     }
-    if (/e8/.test(e.cords)) {
-      e.piece = 'KingB';
-      e.hasPiece = true;
+    if (/e8/.test(e.cord)) {
+      e.piece = 'kb';
     }
   });
   return arr;
@@ -119,15 +105,15 @@ function ensure<T>(
 }
 
 export const findPiece = (cord: string, arr: ISquareState[]): string => {
-  const find = arr.find((square) => square.cords === cord);
+  const find = arr.find((square) => square.cord === cord);
   return ensure(find?.piece);
 };
 
 export const getPieceFromKey = (
-  key: string,
+  cord: string,
   object: PiecesType
 ): ReactElement => {
-  return object[key as keyof typeof object];
+  return object[cord as keyof typeof object];
 };
 
 // FUNCTIONS THAT INTERACT WITH BOARD STATE
@@ -145,7 +131,7 @@ export const placeDraggingPiece = (
 ): ISquareState[] => {
   const placedPiece = board.map((square) => ({
     ...square,
-    piece: square.cords === cord ? draggingPiece : square.piece,
+    piece: square.cord === cord ? draggingPiece : square.piece,
   }));
   return placedPiece;
 };
@@ -156,7 +142,7 @@ export const removeDraggedPiece = (
 ): ISquareState[] => {
   const removedPiece = board.map((square) => ({
     ...square,
-    piece: square.cords === cord && square.piece ? '' : square.piece,
+    piece: square.cord === cord && square.piece ? '' : square.piece,
   }));
   return removedPiece;
 };

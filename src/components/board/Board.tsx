@@ -1,6 +1,7 @@
 import './board.css';
 import Square from '../square/Square';
 import { ISquareState, ISquareProps } from '../../constants/constants';
+import React from 'react';
 
 interface IBoardProps extends ISquareProps {
   board: ISquareState[];
@@ -9,16 +10,13 @@ interface IBoardProps extends ISquareProps {
 export default function Board(props: IBoardProps) {
   let fillBoard = props.board.map((i) => (
     <Square
-      override={{ onDragStart: () => {} }}
       number={i.number}
-      cords={i.cords}
-      key={i.cords}
-      hasPiece={i.hasPiece}
+      cord={i.cord}
+      key={i.key}
       piece={i.piece}
-      handleDragEnd={props.handleDragEnd}
-      handleDrop={props.handleDrop}
-      handleDragStart={props.handleDragStart}
-      handleDragOver={props.handleDragOver}
+      selected={i.selected}
+      canMove={i.canMove}
+      handleClick={props.handleClick}
     />
   ));
 

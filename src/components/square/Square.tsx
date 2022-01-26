@@ -15,16 +15,17 @@ export default function Square(props: ISquareProps & ISquareState) {
     classList += ' white';
   }
 
+  if (props.selected === true) {
+    classList += ' selected';
+  }
+
   return (
     <div
       className={classList}
-      onDragStart={(e) => props.handleDragStart(e, props.cords)}
-      onDragEnd={(e) => props.handleDragEnd(e, props.cords)}
-      onDragOver={(e) => props.handleDragOver(e, props.cords)}
-      onDrop={(e) => props.handleDrop(e, props.cords)}
+      onClick={(e) => props.handleClick(e, props.cord)}
     >
-      <div className="cords">{props.cords}</div>
-      <div draggable="true">{getPieceFromKey(props.piece, pieces)}</div>
+      <div className="cords">{props.cord}</div>
+      <div>{getPieceFromKey(props.piece, pieces)}</div>
     </div>
   );
 }
