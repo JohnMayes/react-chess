@@ -1,7 +1,6 @@
 import './board.css';
 import Square from '../square/Square';
 import { ISquareState, ISquareProps } from '../../constants/constants';
-import React from 'react';
 
 interface IBoardProps extends ISquareProps {
   board: ISquareState[];
@@ -17,6 +16,10 @@ export default function Board(props: IBoardProps) {
       selected={i.selected}
       canMove={i.canMove}
       handleClick={props.handleClick}
+      handleDragOver={props.handleDragOver}
+      handleDrop={props.handleDrop}
+      handleMouseOver={props.handleMouseOver}
+      handleDragLeave={props.handleDragLeave}
     />
   ));
 

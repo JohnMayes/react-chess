@@ -1,9 +1,13 @@
-import React, { SyntheticEvent } from 'react';
+import { SyntheticEvent } from 'react';
 import { ReactElement } from 'react';
 
 // INTERFACES
 export interface ISquareProps {
   handleClick: (e: SyntheticEvent, cord: string) => void;
+  handleDragOver: (e: SyntheticEvent) => void;
+  handleDrop: (e: SyntheticEvent, cord: string) => void;
+  handleMouseOver: (e: SyntheticEvent, cord: string) => void;
+  handleDragLeave: (e: SyntheticEvent, cord: string) => void;
 }
 
 export interface ISquareState {
@@ -114,6 +118,44 @@ export const getPieceFromKey = (
   object: PiecesType
 ): ReactElement => {
   return object[cord as keyof typeof object];
+};
+
+export const numToEmptyStrings = (num: number) => {
+  let arr = [];
+  for (let i = num; i > 0; i--) {
+    arr.push('');
+  }
+  return arr;
+};
+
+export const parseFen = (fen: string) => {
+  if (fen) {
+    // Parses FEN in parts
+    const parts = fen.replace(/^\s*/, '').replace(/\s*$/, '').split(/\/|\s/);
+    // Slices pieces position of FEN by row
+    const rows = parts.slice(0, 8);
+    let arrFEN = [];
+    // Splits each row into it's piece notation
+    for (let e of rows) {
+      // Splits each row into it's piece notation
+      const spread: any = e.split('');
+      // If string is a numeral, converts to a number
+      for (let i = 0; i < spread.length; i++) {
+        let char = spread[i];
+        let num = Number(char);
+        // replaces num with array of empty strings equal to num
+        if (Number.isNaN(num) === false) {
+          spread[i] = numToEmptyStrings(num);
+        }
+      }
+      e = spread.flat();
+      arrFEN.push(e);
+    }
+    const flatFEN = arrFEN.flat();
+    return flatFEN;
+  } else {
+    throw new Error('Not a FEN!');
+  }
 };
 
 // FUNCTIONS THAT INTERACT WITH BOARD STATE
