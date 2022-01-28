@@ -18,18 +18,18 @@ export interface ISquareState {
 // TYPES
 
 export type PiecesType = {
-  pw: ReactElement;
-  pb: ReactElement;
-  rw: ReactElement;
-  rb: ReactElement;
-  nw: ReactElement;
-  nb: ReactElement;
-  bw: ReactElement;
-  bb: ReactElement;
-  qw: ReactElement;
-  qb: ReactElement;
-  kw: ReactElement;
-  kb: ReactElement;
+  P: ReactElement;
+  p: ReactElement;
+  R: ReactElement;
+  r: ReactElement;
+  N: ReactElement;
+  n: ReactElement;
+  B: ReactElement;
+  b: ReactElement;
+  Q: ReactElement;
+  q: ReactElement;
+  K: ReactElement;
+  k: ReactElement;
 };
 
 //  BOARD STATE

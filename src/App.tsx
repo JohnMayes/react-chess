@@ -4,7 +4,6 @@ import { initializeBoardState, ISquareState } from './constants/constants';
 import React, { SyntheticEvent, useRef, useState } from 'react';
 
 import Chess, { ChessInstance, Square } from 'chess.js';
-import { get } from 'http';
 type ChessType = (fen?: string) => ChessInstance;
 const ChessImport = Chess as unknown;
 const Chess2 = ChessImport as ChessType;
@@ -20,17 +19,6 @@ function App() {
   const game = Chess2();
   const chess = useRef(game);
 
-  const updatePieces = () => {
-    // const pieceArr = [];
-    let peices = chess.current.board();
-    for (let i = 0; i <= 8; i++) {
-      for (let j = 0; j <= 8; j++) {
-        console.log(`${peices[i][j]?.color}`);
-      }
-    }
-    // console.log(pieceArr);
-  };
-
   const numToEmptyStrings = (num: number) => {
     let arr = [];
     for (let i = num; i > 0; i--) {
@@ -39,22 +27,22 @@ function App() {
     return arr;
   };
 
-  type SpreadType = string[] | string[][];
-
-  function setPosition(fen: string) {
+  const parseFen = (fen: string) => {
     if (fen) {
-      // Parses FEN
+      // Parses FEN in parts
       const parts = fen.replace(/^\s*/, '').replace(/\s*$/, '').split(/\/|\s/);
       // Slices pieces position of FEN by row
       const rows = parts.slice(0, 8);
-      // Splits each row into it's piece notation
       let arrFEN = [];
+      // Splits each row into it's piece notation
       for (let e of rows) {
+        // Splits each row into it's piece notation
         const spread: any = e.split('');
         // If string is a numeral, converts to a number
         for (let i = 0; i < spread.length; i++) {
           let char = spread[i];
           let num = Number(char);
+          // replaces num with array of empty strings equal to num
           if (Number.isNaN(num) === false) {
             spread[i] = numToEmptyStrings(num);
           }
@@ -63,13 +51,24 @@ function App() {
         arrFEN.push(e);
       }
       const flatFEN = arrFEN.flat();
-      console.log(flatFEN);
+      return flatFEN;
+    } else {
+      throw new Error('Not a FEN!');
     }
-  }
+  };
 
-  // console.log(numToEmptyStrings(8));
-  console.log(board);
-  setPosition('rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1');
+  const updatePosition = (board: ISquareState[]) => {
+    let fenPos = parseFen(chess.current.fen());
+    let newBoard = board.slice();
+    for (let i = 0; i <= 63; i++) {
+      newBoard[i].piece = fenPos[i];
+    }
+    return newBoard;
+  };
+
+  // console.log(board);
+  // console.log(parseFen(chess.current.fen()));
+  console.log(updatePosition(board));
 
   const handleClick = (e: SyntheticEvent, cord: string) => {
     setSquare(cord);
@@ -87,7 +86,6 @@ function App() {
       }));
       setBoard(setPiece);
     }
-    console.log(updatePieces());
   };
   console.log(chess.current.ascii());
 

@@ -13,18 +13,18 @@ import { ReactComponent as KingB } from '../../assets/king-black.svg';
 import { PiecesType } from '../../constants/constants';
 
 const pieces: PiecesType = {
-  pw: <PawnW className="chessPiece" />,
-  pb: <PawnB className="chessPiece" />,
-  rw: <RookW className="chessPiece" />,
-  rb: <RookB className="chessPiece" />,
-  nw: <KnightW className="chessPiece" />,
-  nb: <KnightB className="chessPiece" />,
-  bw: <BishopW className="chessPiece" />,
-  bb: <BishopB className="chessPiece" />,
-  qw: <QueenW className="chessPiece" />,
-  qb: <QueenB className="chessPiece" />,
-  kw: <KingW className="chessPiece" />,
-  kb: <KingB className="chessPiece" />,
+  P: <PawnW className="chessPiece" />,
+  p: <PawnB className="chessPiece" />,
+  R: <RookW className="chessPiece" />,
+  r: <RookB className="chessPiece" />,
+  N: <KnightW className="chessPiece" />,
+  n: <KnightB className="chessPiece" />,
+  B: <BishopW className="chessPiece" />,
+  b: <BishopB className="chessPiece" />,
+  Q: <QueenW className="chessPiece" />,
+  q: <QueenB className="chessPiece" />,
+  K: <KingW className="chessPiece" />,
+  k: <KingB className="chessPiece" />,
 };
 
 export default pieces;
