@@ -63,12 +63,8 @@ function App() {
     for (let i = 0; i <= 63; i++) {
       newBoard[i].piece = fenPos[i];
     }
-    return newBoard;
+    setBoard(newBoard);
   };
-
-  // console.log(board);
-  // console.log(parseFen(chess.current.fen()));
-  console.log(updatePosition(board));
 
   const handleClick = (e: SyntheticEvent, cord: string) => {
     setSquare(cord);
@@ -77,15 +73,7 @@ function App() {
       to: cord as Square,
     });
     console.log(move);
-    const getPiece = chess.current.get(cord as Square);
-    if (getPiece != null && move != null) {
-      const newPiece = `${getPiece.type + getPiece.color}`;
-      const setPiece = board.map((square) => ({
-        ...square,
-        piece: square.cord === cord ? newPiece : square.piece,
-      }));
-      setBoard(setPiece);
-    }
+    updatePosition(board);
   };
   console.log(chess.current.ascii());
 

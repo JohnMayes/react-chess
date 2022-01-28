@@ -52,40 +52,40 @@ export const initializeBoardState = (arr: ISquareState[]): ISquareState[] => {
 
   arr.forEach((e) => {
     if (/2$/.test(e.cord)) {
-      e.piece = 'pw';
+      e.piece = 'P';
     }
     if (/7$/.test(e.cord)) {
-      e.piece = 'pb';
+      e.piece = 'p';
     }
     if (/a1|h1/.test(e.cord)) {
-      e.piece = 'rw';
+      e.piece = 'R';
     }
     if (/a8|h8/.test(e.cord)) {
-      e.piece = 'rb';
+      e.piece = 'r';
     }
     if (/b1|g1/.test(e.cord)) {
-      e.piece = 'nw';
+      e.piece = 'N';
     }
     if (/b8|g8/.test(e.cord)) {
-      e.piece = 'nb';
+      e.piece = 'n';
     }
     if (/c1|f1/.test(e.cord)) {
-      e.piece = 'bw';
+      e.piece = 'B';
     }
     if (/c8|f8/.test(e.cord)) {
-      e.piece = 'bb';
+      e.piece = 'b';
     }
     if (/d1/.test(e.cord)) {
-      e.piece = 'qw';
+      e.piece = 'Q';
     }
     if (/d8/.test(e.cord)) {
-      e.piece = 'qb';
+      e.piece = 'q';
     }
     if (/e1/.test(e.cord)) {
-      e.piece = 'kw';
+      e.piece = 'K';
     }
     if (/e8/.test(e.cord)) {
-      e.piece = 'kb';
+      e.piece = 'k';
     }
   });
   return arr;
