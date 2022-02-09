@@ -14,7 +14,11 @@
 }
 
 .selected {
-  background-color: blue;
+  background-color: red;
+}
+
+.can_move {
+  background-color: royalblue;
 }
 
 .cords {

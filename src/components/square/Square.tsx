@@ -19,6 +19,10 @@ export default function Square(props: ISquareProps & ISquareState) {
     classList += ' selected';
   }
 
+  if (props.canMove === true) {
+    classList += ' can_move';
+  }
+
   return (
     <div
       className={classList}

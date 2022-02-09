@@ -35,7 +35,7 @@ function App() {
   const removeHilighting = () => {
     let deselectSquares = board.map((square) => ({
       ...square,
-      selected: false,
+      canMove: false,
     }));
     setBoard(deselectSquares);
   };
@@ -50,11 +50,19 @@ function App() {
     for (const cord of moveArr) {
       for (const square of selectSquares) {
         if (square.cord === cord) {
-          square.selected = true;
+          square.canMove = true;
         }
       }
       setBoard(selectSquares);
     }
+  };
+
+  const highlight = (cord: string) => {
+    const highlighted = board.map((square) => ({
+      ...square,
+      selected: true,
+    }));
+    setBoard(highlighted);
   };
 
   const move = (cord: string) => {
@@ -65,8 +73,8 @@ function App() {
   };
 
   const handleClick = (e: SyntheticEvent, cord: string) => {
-    highlightPossibleMoves(cord);
     setSquare(cord);
+    highlight(cord);
     move(cord);
     updatePosition(board);
   };
@@ -78,6 +86,7 @@ function App() {
 
   const handleMouseOver = (e: SyntheticEvent, cord: string) => {
     e.preventDefault();
+    highlightPossibleMoves(cord);
   };
 
   const handleDragLeave = (e: SyntheticEvent, cord: string) => {
