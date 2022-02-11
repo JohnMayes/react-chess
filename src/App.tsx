@@ -57,10 +57,10 @@ function App() {
     }
   };
 
-  const highlight = (cord: string) => {
+  const highlight = (cords: string) => {
     const highlighted = board.map((square) => ({
       ...square,
-      selected: true,
+      selected: square.cord === cords ? true : false,
     }));
     setBoard(highlighted);
   };
@@ -74,18 +74,18 @@ function App() {
 
   const handleClick = (e: SyntheticEvent, cord: string) => {
     setSquare(cord);
-    highlight(cord);
     move(cord);
     updatePosition(board);
+    highlight(cord);
   };
 
   const handleDragOver = (e: SyntheticEvent) => {
-    e.preventDefault();
-    console.log('dragging over!');
+    // e.preventDefault();
+    // console.log('dragging over!');
   };
 
   const handleMouseOver = (e: SyntheticEvent, cord: string) => {
-    e.preventDefault();
+    // e.preventDefault();
     highlightPossibleMoves(cord);
   };
 

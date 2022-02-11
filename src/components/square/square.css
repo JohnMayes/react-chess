@@ -14,11 +14,13 @@
 }
 
 .selected {
-  background-color: red;
+  border: 1px solid rgba(255, 215, 0, 1);
+  box-shadow: 0 0 5px rgba(255, 215, 0, 1);
 }
 
 .can_move {
-  background-color: royalblue;
+  border: 2px solid rgba(81, 203, 238, 1);
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
 }
 
 .cords {
