@@ -1,20 +1,16 @@
 .board-square {
   display: grid;
   place-content: center;
-  width: 100%;
-  height: 100%;
-  margin: 1px;
-  aspect-ratio: 1;
+  width: 60px;
+  height: 60px;
 }
 
 .black {
   background-color: #613d3d;
-  border: 1px solid #613d3d;
 }
 
 .white {
   background-color: #f3ddcf;
-  border: 1px solid #f3ddcf;
 }
 
 .selected {
@@ -23,7 +19,7 @@
 }
 
 .can_move {
-  border: 1px solid rgba(81, 203, 238, 1);
+  border: 2px solid rgba(81, 203, 238, 1);
   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
 }
 
