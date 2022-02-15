@@ -1,20 +1,22 @@
 .board-square {
   display: grid;
   place-content: center;
-  width: 60px;
-  height: 60px;
+  width: 58px;
+  height: 58px;
 }
 
 .black {
   background-color: #613d3d;
+  border: 2px solid #613d3d;
 }
 
 .white {
   background-color: #f3ddcf;
+  border: 2px solid #f3ddcf;
 }
 
 .selected {
-  border: 1px solid rgba(255, 215, 0, 1);
+  border: 2px solid rgba(255, 215, 0, 1);
   box-shadow: 0 0 5px rgba(255, 215, 0, 1);
 }
 
