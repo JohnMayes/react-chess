@@ -32,10 +32,16 @@
 }
 
 .chessPiece {
-  width: 4vw;
+  width: 6vw;
   max-width: 38px;
 }
 
 .chessPiece:hover {
   cursor: grab;
+}
+
+@media screen and (orientation: landscape) {
+  .chessPiece {
+    width: 6vh;
+  }
 }
