@@ -32,7 +32,7 @@ export default function Square(props: ISquareProps & ISquareState) {
       onMouseOver={(e) => props.handleMouseOver(e, props.cord)}
       onMouseLeave={(e) => props.handleDragLeave(e, props.cord)}
     >
-      <div className="cords">{props.cord}</div>
+      {/* <div className="cords">{props.cord}</div> */}
       <div>{getPieceFromKey(props.piece, pieces)}</div>
     </div>
   );
