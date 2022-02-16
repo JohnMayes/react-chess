@@ -32,8 +32,8 @@
 }
 
 .chessPiece {
-  height: 65%;
-  width: 65%;
+  width: 4vw;
+  max-width: 38px;
 }
 
 .chessPiece:hover {
