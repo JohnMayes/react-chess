@@ -8,10 +8,11 @@ And Open [http://localhost:3000](http://localhost:3000) to view it in the browse
 
 ## To-Do's
 
-- Add side panel to display captured pieces etc.
-- Display current side.
-- Display game-over message.
-- Show previous moves.
+- Add side panel to:
+  - Display captured pieces.
+  - Display current side.
+  - Display game-over message.
+  - Show previous moves.
 
 ## Wishes
 
