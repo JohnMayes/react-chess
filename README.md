@@ -8,11 +8,9 @@ And Open [http://localhost:3000](http://localhost:3000) to view it in the browse
 
 ## To-Do's
 
-- Implement drag and drop.
-- Play with move highlighting.
+- Add side panel to display captured pieces etc.
 - Display current side.
 - Display game-over message.
-- Add side panel to display captured pieces etc.
 - Show previous moves.
 
 ## Wishes

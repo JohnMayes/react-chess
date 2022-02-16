@@ -16,10 +16,8 @@ export default function Board(props: IBoardProps) {
       selected={i.selected}
       canMove={i.canMove}
       handleClick={props.handleClick}
-      handleDragOver={props.handleDragOver}
-      handleDrop={props.handleDrop}
-      handleMouseOver={props.handleMouseOver}
-      handleDragLeave={props.handleDragLeave}
+      handlePointerOver={props.handlePointerOver}
+      handlePointerLeave={props.handlePointerLeave}
     />
   ));
 

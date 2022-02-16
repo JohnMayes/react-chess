@@ -74,30 +74,18 @@ function App() {
 
   const handleClick = (e: SyntheticEvent, cord: string) => {
     setSquare(cord);
+    highlightPossibleMoves(cord);
     move(cord);
     updatePosition(board);
     highlight(cord);
   };
 
-  const handleDragOver = (e: SyntheticEvent) => {
-    // e.preventDefault();
-    // console.log('dragging over!');
-  };
-
-  const handleMouseOver = (e: SyntheticEvent, cord: string) => {
-    // e.preventDefault();
+  const handlePointerOver = (e: SyntheticEvent, cord: string) => {
     highlightPossibleMoves(cord);
   };
 
-  const handleDragLeave = (e: SyntheticEvent, cord: string) => {
-    // e.preventDefault();
-    // e.stopPropagation();
+  const handlePointerLeave = (e: SyntheticEvent, cord: string) => {
     removeHilighting();
-  };
-
-  const handleDrop = (e: SyntheticEvent, cord: string) => {
-    e.stopPropagation();
-    e.preventDefault();
   };
 
   return (
@@ -106,10 +94,8 @@ function App() {
         <Board
           board={board}
           handleClick={handleClick}
-          handleDragOver={handleDragOver}
-          handleDrop={handleDrop}
-          handleMouseOver={handleMouseOver}
-          handleDragLeave={handleDragLeave}
+          handlePointerOver={handlePointerOver}
+          handlePointerLeave={handlePointerLeave}
         />
       </div>
     </div>

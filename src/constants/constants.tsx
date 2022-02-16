@@ -4,10 +4,8 @@ import { ReactElement } from 'react';
 // INTERFACES
 export interface ISquareProps {
   handleClick: (e: SyntheticEvent, cord: string) => void;
-  handleDragOver: (e: SyntheticEvent) => void;
-  handleDrop: (e: SyntheticEvent, cord: string) => void;
-  handleMouseOver: (e: SyntheticEvent, cord: string) => void;
-  handleDragLeave: (e: SyntheticEvent, cord: string) => void;
+  handlePointerOver: (e: SyntheticEvent, cord: string) => void;
+  handlePointerLeave: (e: SyntheticEvent, cord: string) => void;
 }
 
 export interface ISquareState {
