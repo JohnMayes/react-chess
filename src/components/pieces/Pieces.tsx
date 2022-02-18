@@ -5,7 +5,7 @@ import { ReactComponent as RookB } from '../../assets/rook-black.svg';
 import { ReactComponent as KnightW } from '../../assets/knight-white.svg';
 import { ReactComponent as KnightB } from '../../assets/knight-black.svg';
 import { ReactComponent as BishopW } from '../../assets/bishop-white.svg';
-import { ReactComponent as BishopB } from '../../assets/alt/bishop-black.svg';
+import { ReactComponent as BishopB } from '../../assets/bishop-black.svg';
 import { ReactComponent as QueenW } from '../../assets/queen-white.svg';
 import { ReactComponent as QueenB } from '../../assets/queen-black.svg';
 import { ReactComponent as KingW } from '../../assets/king-white.svg';
