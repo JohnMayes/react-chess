@@ -9,22 +9,18 @@
 
 .black {
   background-color: #613d3d;
-  border: 2px solid #613d3d;
 }
 
 .white {
   background-color: #f3ddcf;
-  border: 2px solid #f3ddcf;
 }
 
 .selected {
-  border: 2px solid rgba(255, 215, 0, 1);
-  box-shadow: 0 0 5px rgba(255, 215, 0, 1);
+  box-shadow: inset 0 0 0.8em rgba(255, 215, 0, 1);
 }
 
 .can_move {
-  border: 2px solid rgba(81, 203, 238, 1);
-  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  box-shadow: inset 0 0 0.8em rgba(81, 203, 238, 1);
 }
 
 .cords {
